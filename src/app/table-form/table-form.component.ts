@@ -12,6 +12,7 @@ export class TableFormComponent implements OnInit {
   @Input() controls: Map<string, ValidatorFn[]>;
   formGroup: FormGroup;
   selectedRow: number;
+  selectedCol: number;
   enterSubmission: boolean = false;
 
   ngOnInit(): void {
@@ -35,6 +36,11 @@ export class TableFormComponent implements OnInit {
       array
     })
   }
+  
+  onSelectInput(row:number, col:number){
+    this.selectedRow = row;
+    this.selectedCol = col;
+  }
 
   onSubmit(source: string){
     const rows = this.getFormArray.controls;
@@ -52,6 +58,14 @@ export class TableFormComponent implements OnInit {
     const row = this.getFormGroup(this.selectedRow);
     if(row.valid){
       this.enterSubmission = true;
+      event.target.blur();
+    }
+  }
+
+  @HostListener('keydown.tab', ['$event'])
+  onTabKeydown(event){
+    if(this.selectedRow === this.getFormArray.controls.length - 1 && this.selectedCol === this.controls.size - 1){
+      event.preventDefault();
       event.target.blur();
     }
   }

@@ -19,7 +19,7 @@
                                 type="text" 
                                 [formControlName]="control[0]"
                                 (blur)="onInputBlur()"
-                                (focus)="selectedRow = i">
+                                (focus)="onSelectInput(i, j)">
                         </td>
                     }
                 </tr>
