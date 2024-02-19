@@ -61,6 +61,14 @@ export class TableFormComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSave(index: number){
+    const group = this.getFormGroup(index);
+    if(!group.valid){
+      group.markAllAsTouched();
+      alert('Invalid row');
+    }
+  }
+
   @HostListener('keydown.enter', ['$event'])
   onEnterKeydown(event) {
     const row = this.getFormGroup(this.selectedRow);

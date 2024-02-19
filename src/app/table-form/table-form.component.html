@@ -7,6 +7,7 @@
                         {{ header[0] }}
                     </th>
                 }
+                <th>Action</th>
             </tr>
         </thead>
         <tbody formArrayName="array">
@@ -33,6 +34,13 @@
                             }
                         </td>
                     }
+                    <td>
+                        @if (group.dirty) {
+                            <a (click)="onSave(i)">
+                                <i class="bi bi-floppy"></i>
+                            </a>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
