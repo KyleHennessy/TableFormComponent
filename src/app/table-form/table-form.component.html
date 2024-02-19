@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup">
+    <table class="table">
+        <thead>
+            <tr>
+                @for (header of controls; track $index) {
+                    <th>
+                        {{ header[0] }}
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody formArrayName="array">
+            @for (group of getFormArray.controls; track group; let i=$index; let isLast=$last) {
+                <tr [formGroupName]="i">
+                    @for (control of controls; track control[0]; let j=$index) {
+                        <td>
+                            <input class="formControl" type="text" [formControlName]="control[0]">
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>      
+</form>
