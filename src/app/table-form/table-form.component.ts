@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
 
 @Component({
@@ -8,8 +8,9 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } f
   templateUrl: './table-form.component.html',
   styleUrl: './table-form.component.scss'
 })
-export class TableFormComponent implements OnInit {
+export class TableFormComponent implements OnInit, AfterViewInit {
   @Input() controls: Map<string, ValidatorFn[]>;
+  @ViewChildren('firstInput') inputs: QueryList<ElementRef>;
   formGroup: FormGroup;
   selectedRow: number;
   selectedCol: number;
@@ -37,6 +38,13 @@ export class TableFormComponent implements OnInit {
     })
   }
   
+  ngAfterViewInit(): void {
+    this.inputs.changes.subscribe(() => {
+      if(this.inputs.last){
+        this.inputs.last.nativeElement.focus();
+      }
+    })
+  }
   onSelectInput(row:number, col:number){
     this.selectedRow = row;
     this.selectedCol = col;
