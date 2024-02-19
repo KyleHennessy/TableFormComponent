@@ -14,7 +14,12 @@
                 <tr [formGroupName]="i">
                     @for (control of controls; track control[0]; let j=$index) {
                         <td>
-                            <input class="formControl" type="text" [formControlName]="control[0]">
+                            <input 
+                                class="formControl" 
+                                type="text" 
+                                [formControlName]="control[0]"
+                                (blur)="onSubmit()"
+                                (focus)="selectedRow = i">
                         </td>
                     }
                 </tr>

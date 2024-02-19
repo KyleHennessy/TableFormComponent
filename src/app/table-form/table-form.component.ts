@@ -11,6 +11,8 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } f
 export class TableFormComponent implements OnInit {
   @Input() controls: Map<string, ValidatorFn[]>;
   formGroup: FormGroup;
+  selectedRow: number;
+  enterSubmission: boolean = false;
 
   ngOnInit(): void {
     if (!this.controls) {
@@ -33,6 +35,51 @@ export class TableFormComponent implements OnInit {
       array
     })
   }
+
+  onSubmit(){
+    const rows = this.getFormArray.controls;
+    
+    if(this.selectedRow === rows.length - 1){
+      this.create();
+    } else {
+      this.update();
+    }
+  }
+
+  create(){
+    const group = this.getFormGroup(this.getFormArray.length - 1);
+
+    if(group.valid){
+      group.markAsPristine();
+      const newGroup = this.cloneGroup(group);
+      this.getFormArray.push(newGroup);
+    }
+  }
+
+  update() {
+    const group = this.getFormGroup(this.selectedRow);
+
+    if(group.dirty){
+      if(group.valid){
+        group.markAsPristine();
+      }
+    }
+  }
+
+  cloneGroup(group: FormGroup): FormGroup{
+    const newGroup = new FormGroup({});
+
+    Object.keys(group.controls).forEach(name => {
+      newGroup.addControl(name, new FormControl('', this.controls.get(name)));
+    });
+
+    return newGroup;
+  }
+
+  private getFormGroup(index: number): FormGroup{
+    return <FormGroup>this.getFormArray.at(index);
+  }
+
 
   get getFormArray(): FormArray {
     return <FormArray>this.formGroup.get('array');
