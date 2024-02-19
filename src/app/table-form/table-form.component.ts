@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
 
 @Component({
@@ -36,14 +36,35 @@ export class TableFormComponent implements OnInit {
     })
   }
 
-  onSubmit(){
+  onSubmit(source: string){
     const rows = this.getFormArray.controls;
-    
+
     if(this.selectedRow === rows.length - 1){
       this.create();
     } else {
+      if(source === 'enter') rows[this.selectedRow].markAsDirty();
       this.update();
     }
+  }
+
+  @HostListener('keydown.enter', ['$event'])
+  onEnterKeydown(event) {
+    const row = this.getFormGroup(this.selectedRow);
+    if(row.valid){
+      this.enterSubmission = true;
+      event.target.blur();
+    }
+  }
+
+  onInputBlur() {
+    setTimeout(() => {
+      if(this.enterSubmission){
+        this.enterSubmission = false;
+        this.onSubmit('enter');
+      } else {
+        this.onSubmit('focusout');
+      }
+    })
   }
 
   create(){
