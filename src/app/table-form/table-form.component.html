@@ -40,6 +40,11 @@
                                 <i class="bi bi-floppy"></i>
                             </a>
                         }
+                        @if (!isLast) {
+                            <a (click)="delete(i)">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        }
                     </td>
                 </tr>
             }

@@ -117,6 +117,10 @@ export class TableFormComponent implements OnInit, AfterViewInit {
     }
   }
 
+  delete(index){
+    this.getFormArray.removeAt(index);
+  }
+
   cloneGroup(group: FormGroup): FormGroup{
     const newGroup = new FormGroup({});
 
