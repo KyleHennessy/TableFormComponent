@@ -15,6 +15,7 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   selectedRow: number;
   selectedCol: number;
   enterSubmission: boolean = false;
+  tabbed: boolean = false;
 
   ngOnInit(): void {
     if (!this.controls) {
@@ -37,33 +38,34 @@ export class TableFormComponent implements OnInit, AfterViewInit {
       array
     })
   }
-  
+
   ngAfterViewInit(): void {
     this.inputs.changes.subscribe(() => {
-      if(this.inputs.last){
+      if (this.inputs.last) {
         this.inputs.last.nativeElement.focus();
       }
     })
   }
-  onSelectInput(row:number, col:number){
+  onSelectInput(row: number, col: number) {
     this.selectedRow = row;
     this.selectedCol = col;
   }
 
-  onSubmit(source: string){
+  onSubmit(source: string) {
+    this.tabbed = false;
     const rows = this.getFormArray.controls;
 
-    if(this.selectedRow === rows.length - 1){
+    if (this.selectedRow === rows.length - 1) {
       this.create();
     } else {
-      if(source === 'enter') rows[this.selectedRow].markAsDirty();
+      if (source === 'enter') rows[this.selectedRow].markAsDirty();
       this.update();
     }
   }
 
-  onSave(index: number){
+  onSave(index: number) {
     const group = this.getFormGroup(index);
-    if(!group.valid){
+    if (!group.valid) {
       group.markAllAsTouched();
       alert('Invalid row');
     }
@@ -72,35 +74,39 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   @HostListener('keydown.enter', ['$event'])
   onEnterKeydown(event) {
     const row = this.getFormGroup(this.selectedRow);
-    if(row.valid){
+    if (row.valid) {
       this.enterSubmission = true;
       event.target.blur();
     }
   }
 
   @HostListener('keydown.tab', ['$event'])
-  onTabKeydown(event){
-    if(this.selectedRow === this.getFormArray.controls.length - 1 && this.selectedCol === this.controls.size - 1){
+  onTabKeydown(event) {
+    this.tabbed = true;
+    if (this.selectedRow === this.getFormArray.controls.length - 1 && this.selectedCol === this.controls.size - 1) {
       event.preventDefault();
       event.target.blur();
     }
   }
 
   onInputBlur() {
-    setTimeout(() => {
-      if(this.enterSubmission){
-        this.enterSubmission = false;
-        this.onSubmit('enter');
-      } else {
-        this.onSubmit('focusout');
+    if (this.enterSubmission) {
+      this.enterSubmission = false;
+      this.onSubmit('enter');
+    } else {
+      if(this.tabbed && this.selectedCol !== this.controls.size - 1){
+        this.tabbed = false;
+        return;
       }
-    })
+      this.onSubmit('focusout');
+    }
+
   }
 
-  create(){
+  create() {
     const group = this.getFormGroup(this.getFormArray.length - 1);
 
-    if(group.valid){
+    if (group.valid) {
       group.markAsPristine();
       const newGroup = this.cloneGroup(group);
       this.getFormArray.push(newGroup);
@@ -110,18 +116,18 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   update() {
     const group = this.getFormGroup(this.selectedRow);
 
-    if(group.dirty){
-      if(group.valid){
+    if (group.dirty) {
+      if (group.valid) {
         group.markAsPristine();
       }
     }
   }
 
-  delete(index){
+  delete(index) {
     this.getFormArray.removeAt(index);
   }
 
-  cloneGroup(group: FormGroup): FormGroup{
+  cloneGroup(group: FormGroup): FormGroup {
     const newGroup = new FormGroup({});
 
     Object.keys(group.controls).forEach(name => {
@@ -131,7 +137,7 @@ export class TableFormComponent implements OnInit, AfterViewInit {
     return newGroup;
   }
 
-  private getFormGroup(index: number): FormGroup{
+  private getFormGroup(index: number): FormGroup {
     return <FormGroup>this.getFormArray.at(index);
   }
 
