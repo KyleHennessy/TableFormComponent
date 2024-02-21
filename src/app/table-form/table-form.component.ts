@@ -14,6 +14,7 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup;
   selectedRow: number;
   selectedCol: number;
+  validTableForm: boolean = false;
   enterSubmission: boolean = false;
   tabbed: boolean = false;
 
@@ -36,7 +37,9 @@ export class TableFormComponent implements OnInit, AfterViewInit {
 
     this.formGroup = new FormGroup({
       array
-    })
+    });
+
+    this.validTableForm = true;
   }
 
   ngAfterViewInit(): void {
