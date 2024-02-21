@@ -15,4 +15,29 @@ export class AppComponent {
     ["Name", [Validators.required]],
     ["Surname", [Validators.required]]
   ])
+
+  demo2 = new Map<string, ValidatorFn[]>([
+    ['Id', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+    ['AccountNumber', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    ['Email', [Validators.required, Validators.email]],
+    ['OrderNumber', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    ['Balance', [Validators.required, Validators.pattern('^[0-9]+$')]]
+  ])
+
+  demoArray2 = [
+    {
+      Id: 'ABCDE',
+      AccountNumber: '12345',
+      Email: 'joe@email.com',
+      OrderNumber: '1',
+      Balance: '50',
+    },
+    {
+      Id: 'FGHIJ',
+      AccountNumber: '67891',
+      Email: 'john@email.com',
+      OrderNumber: '8',
+      Balance: '12',
+    }
+  ]
 }

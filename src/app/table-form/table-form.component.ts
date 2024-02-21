@@ -10,6 +10,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } f
 })
 export class TableFormComponent implements OnInit, AfterViewInit {
   @Input() controls: Map<string, ValidatorFn[]>;
+  @Input() array?: any[];
   @ViewChildren('firstInput') inputs: QueryList<ElementRef>;
   formGroup: FormGroup;
   selectedRow: number;
@@ -19,25 +20,36 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   tabbed: boolean = false;
 
   ngOnInit(): void {
-    if (!this.controls) {
+    if(!this.controls){
       return;
     }
+    
+    let formArray = new FormArray([]);
+    
+    if(this.array){    
+      for(const item of this.array){
+        const formGroup = new FormGroup({});
+        for (const key of Object.keys(item)){
+          if(this.controls.has(key)){
+            formGroup.addControl(key, new FormControl(item[key], this.controls.get(key)))
+          }
+        }
+        formArray.push(formGroup)
+      }
 
-    let array: FormArray;
-
-    const group = new FormGroup({});
-
-    for (const control of this.controls) {
-      group.addControl(control[0], new FormControl('', control[1]))
+      console.log(formArray.value)
     }
 
-    array = new FormArray([
-      group
-    ]);
+    let emptyRow = new FormGroup({});
+    for(const control of this.controls){
+      emptyRow.addControl(control[0], new FormControl('', control[1]))
+    }
+
+    formArray.push(emptyRow);
 
     this.formGroup = new FormGroup({
-      array
-    });
+      array: formArray
+    })
 
     this.validTableForm = true;
   }
