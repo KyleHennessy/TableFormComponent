@@ -5,56 +5,58 @@
 }
 @else {
     <form [formGroup]="formGroup">
-        <table class="table">
-            <thead>
-                <tr>
-                    @for (header of controls; track $index) {
-                        <th>
-                            {{ header[0] }}
-                        </th>
-                    }
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody formArrayName="array">
-                @for (group of getFormArray.controls; track group; let i=$index; let isLast=$last) {
-                    <tr [formGroupName]="i">
-                        @for (control of controls; track control[0]; let j=$index) {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        @for (header of controls; track $index) {
+                            <th>
+                                {{ header[0] }}
+                            </th>
+                        }
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="array">
+                    @for (group of getFormArray.controls; track group; let i=$index; let isLast=$last) {
+                        <tr [formGroupName]="i">
+                            @for (control of controls; track control[0]; let j=$index) {
+                                <td>
+                                    @if (j === 0) {
+                                        <input 
+                                            #firstInput
+                                            class="formControl" 
+                                            type="text" 
+                                            [formControlName]="control[0]"
+                                            (blur)="onInputBlur()"
+                                            (focus)="onSelectInput(i, j)">
+                                    } 
+                                    @else {
+                                        <input 
+                                            class="formControl" 
+                                            type="text" 
+                                            [formControlName]="control[0]"
+                                            (blur)="onInputBlur()"
+                                            (focus)="onSelectInput(i, j)">
+                                    }
+                                </td>
+                            }
                             <td>
-                                @if (j === 0) {
-                                    <input 
-                                        #firstInput
-                                        class="formControl" 
-                                        type="text" 
-                                        [formControlName]="control[0]"
-                                        (blur)="onInputBlur()"
-                                        (focus)="onSelectInput(i, j)">
-                                } 
-                                @else {
-                                    <input 
-                                        class="formControl" 
-                                        type="text" 
-                                        [formControlName]="control[0]"
-                                        (blur)="onInputBlur()"
-                                        (focus)="onSelectInput(i, j)">
+                                @if (group.dirty) {
+                                    <a (click)="onSave(i)">
+                                        <i class="bi bi-floppy"></i>
+                                    </a>
+                                }
+                                @if (!isLast) {
+                                    <a (click)="delete(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 }
                             </td>
-                        }
-                        <td>
-                            @if (group.dirty) {
-                                <a (click)="onSave(i)">
-                                    <i class="bi bi-floppy"></i>
-                                </a>
-                            }
-                            @if (!isLast) {
-                                <a (click)="delete(i)">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>      
+                        </tr>
+                    }
+                </tbody>
+            </table> 
+        </div>     
     </form>
 }

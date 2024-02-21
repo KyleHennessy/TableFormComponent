@@ -151,9 +151,9 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   cloneGroup(group: FormGroup): FormGroup {
     const newGroup = new FormGroup({});
 
-    Object.keys(group.controls).forEach(name => {
-      newGroup.addControl(name, new FormControl('', this.controls.get(name)));
-    });
+    for(const control of Object.keys(group.controls)){
+      newGroup.addControl(control, new FormControl('', this.controls.get(control)));
+    }
 
     return newGroup;
   }
