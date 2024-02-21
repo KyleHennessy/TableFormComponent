@@ -11,6 +11,9 @@ import { ValidatorFn, Validators } from '@angular/forms';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  lastRowCreated: string;
+  lastRowUpdated: string;
+  lastRowDeleted: string;
   demo1 = new Map<string, ValidatorFn[]>([
     ["Name", [Validators.required]],
     ["Surname", [Validators.required]]
@@ -40,4 +43,16 @@ export class AppComponent {
       Balance: '12',
     }
   ]
+
+  onRowCreated(event){
+    this.lastRowCreated = JSON.stringify(event);
+  }
+
+  onRowUpdated(event){
+    this.lastRowUpdated = JSON.stringify(event);
+  }
+
+  onRowDeleted(event){
+    this.lastRowDeleted = JSON.stringify(event)
+  }
 }

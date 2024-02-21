@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,9 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   @Input() controls: Map<string, ValidatorFn[]>;
   @Input() array?: any[];
   @ViewChildren('firstInput') inputs: QueryList<ElementRef>;
+  @Output() rowUpdated = new EventEmitter<any>();
+  @Output() rowCreated = new EventEmitter<any>();
+  @Output() rowDeleted = new EventEmitter<any>();
   formGroup: FormGroup;
   selectedRow: number;
   selectedCol: number;
@@ -125,6 +128,7 @@ export class TableFormComponent implements OnInit, AfterViewInit {
       group.markAsPristine();
       const newGroup = this.cloneGroup(group);
       this.getFormArray.push(newGroup);
+      this.rowCreated.emit(group.value);
     }
   }
 
@@ -134,11 +138,13 @@ export class TableFormComponent implements OnInit, AfterViewInit {
     if (group.dirty) {
       if (group.valid) {
         group.markAsPristine();
+        this.rowUpdated.emit(group.value);
       }
     }
   }
 
   delete(index) {
+    this.rowDeleted.emit(this.getFormGroup(this.selectedRow).value);
     this.getFormArray.removeAt(index);
   }
 

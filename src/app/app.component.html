@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <app-table-form [controls]="demo1"></app-table-form>
+            <app-table-form [controls]="demo1" (rowCreated)="onRowCreated($event)" (rowUpdated)="onRowUpdated($event)" (rowDeleted)="onRowDeleted($event)"></app-table-form>
         </div>
     </div>
     <div class="row">
@@ -14,5 +14,21 @@
             <app-table-form></app-table-form>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            {{lastRowCreated ? 'Last created row: ' + lastRowCreated : ''}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+           {{lastRowUpdated ? 'Last updated row: ' + lastRowUpdated : ''}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+           {{lastRowDeleted ? 'Last deleted row: ' + lastRowDeleted : ''}}
+        </div>
+    </div>
+    
 </div>
 
