@@ -12,9 +12,10 @@
             <li><strong>The save button is clicked</strong></li>
             <li><strong>Tabbing to the next row</strong></li>
         </ul>
-
+        
         The table form requires a map of control names and validators as an input.<br />
-        The control name is the key in the map, and the value is an array of validator functions.
+        The control name is the key in the map, and the value is an array of validator functions.<br/>
+        A row can only be valid when it meets the requirements of the validator functions in the input map.
     </div>
     <div class="row mb-5">
         <div class="col">
@@ -29,7 +30,7 @@
     </div>
 
     <div>
-        If a map of control names and validator functions is not passed as an input to the table form component, then the table form won't initialize.
+        If a map of control names and validator functions is not passed in as an input to the table form component, then the component won't initialize.
     </div>
     <div class="row mb-5">
         <div class="col">
@@ -38,7 +39,7 @@
     </div>
 
     <div>
-        The amount of headers in the table is determined by the amount of key value pairs in the controls map. <br/>
+        The amount of headers/columns in the table is determined by the amount of key value pairs in the controls map. <br/>
     </div>
 
     <div class="row mb-5">
@@ -87,8 +88,14 @@
     </div>
 
     <div>
-        An event emitter emits the value of the object of a row if it has been modified.<br/>
-        There is a dedicated event emitter for each possible action (create, update, delete, invalid row upon clicking save)
+        An event emitter emits the value of a row if an event occurs.<br/>
+        There is a dedicated event emitter for each of these possible actions:<br/>
+        <ul>
+            <li><strong>Creating a row</strong></li>
+            <li><strong>Updating a row</strong></li>
+            <li><strong>Deleting a row</strong></li>
+            <li><strong>Invalid row upon clicking save</strong></li>
+        </ul>
         You can write your own methods to react to these events as you see fit.<br/>
         In this demo it reacts to these events by printing them out on the screen, but you could also make calls to an endpoint
         passing the row value as the request body. Its up to you to decide.
