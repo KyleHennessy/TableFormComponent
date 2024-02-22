@@ -98,6 +98,39 @@
           }
         }
       }
+    },
+    "ng-table-form": {
+      "projectType": "library",
+      "root": "projects/ng-table-form",
+      "sourceRoot": "projects/ng-table-form/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-table-form/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-table-form/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-table-form/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ng-table-form/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

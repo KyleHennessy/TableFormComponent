@@ -115,4 +115,15 @@
             {{lastRowDeleted ? 'Last deleted row: ' + lastRowDeleted : ''}}
         </div>
     </div>
+
+
+    <div class="row mt-5">
+        <p>Test library table form</p>
+        <ng-table-form [controls]="demo1" 
+            (rowCreated)="onRowCreated($event)" 
+            (rowUpdated)="onRowUpdated($event)"
+            (rowDeleted)="onRowDeleted($event)"
+            (invalidRow)="onInvalidRow($event)">
+        </ng-table-form>
+    </div>
 </div>
