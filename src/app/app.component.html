@@ -7,6 +7,7 @@
         New rows are added when:<br />
         <ul>
             <li><strong>The enter key is pressed</strong></li>
+            <li><strong>The escape key is pressed</strong></li>
             <li><strong>The form loses focus</strong></li>
             <li><strong>The save button is clicked</strong></li>
             <li><strong>Tabbing to the next row</strong></li>
@@ -21,7 +22,8 @@
                 [controls]="demo1" 
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
-                (rowDeleted)="onRowDeleted($event)">
+                (rowDeleted)="onRowDeleted($event)"
+                (invalidRow)="onInvalidRow($event)">
             </app-table-form>
         </div>
     </div>
@@ -45,7 +47,8 @@
                 [controls]="demo2"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
-                (rowDeleted)="onRowDeleted($event)">
+                (rowDeleted)="onRowDeleted($event)"
+                (invalidRow)="onInvalidRow($event)">
             </app-table-form>
         </div>
     </div>
@@ -60,7 +63,8 @@
                 [controls]="demo3"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
-                (rowDeleted)="onRowDeleted($event)">
+                (rowDeleted)="onRowDeleted($event)"
+                (invalidRow)="onInvalidRow($event)">
             </app-table-form>
         </div>
     </div>
@@ -76,14 +80,15 @@
                 [array]="demoArray"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
-                (rowDeleted)="onRowDeleted($event)">
+                (rowDeleted)="onRowDeleted($event)"
+                (invalidRow)="onInvalidRow($event)">
             </app-table-form>
         </div>
     </div>
 
     <div>
         An event emitter emits the value of the object of a row if it has been modified.<br/>
-        There is a dedicated event emitter for each possible action (create, update, delete)
+        There is a dedicated event emitter for each possible action (create, update, delete, invalid row upon clicking save)
         You can write your own methods to react to these events as you see fit.<br/>
         In this demo it reacts to these events by printing them out on the screen, but you could also make calls to an endpoint
         passing the row value as the request body. Its up to you to decide.

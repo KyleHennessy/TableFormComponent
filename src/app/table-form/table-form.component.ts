@@ -15,11 +15,12 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   @Output() rowUpdated = new EventEmitter<any>();
   @Output() rowCreated = new EventEmitter<any>();
   @Output() rowDeleted = new EventEmitter<any>();
+  @Output() invalidRow = new EventEmitter<any>();
   formGroup: FormGroup;
   selectedRow: number;
   selectedCol: number;
   validTableForm: boolean = false;
-  enterSubmission: boolean = false;
+  keydownSubmission: boolean = false;
   tabbed: boolean = false;
 
   ngOnInit(): void {
@@ -39,8 +40,6 @@ export class TableFormComponent implements OnInit, AfterViewInit {
         }
         formArray.push(formGroup)
       }
-
-      console.log(formArray.value)
     }
 
     let emptyRow = new FormGroup({});
@@ -85,15 +84,16 @@ export class TableFormComponent implements OnInit, AfterViewInit {
     const group = this.getFormGroup(index);
     if (!group.valid) {
       group.markAllAsTouched();
-      alert('Invalid row');
+      this.invalidRow.emit(group.value);
     }
   }
 
   @HostListener('keydown.enter', ['$event'])
+  @HostListener('keydown.escape', ['$event'])
   onEnterKeydown(event) {
     const row = this.getFormGroup(this.selectedRow);
     if (row.valid) {
-      this.enterSubmission = true;
+      this.keydownSubmission = true;
       event.target.blur();
     }
   }
@@ -108,8 +108,8 @@ export class TableFormComponent implements OnInit, AfterViewInit {
   }
 
   onInputBlur() {
-    if (this.enterSubmission) {
-      this.enterSubmission = false;
+    if (this.keydownSubmission) {
+      this.keydownSubmission = false;
       this.onSubmit('enter');
     } else {
       if(this.tabbed && this.selectedCol !== this.controls.size - 1){

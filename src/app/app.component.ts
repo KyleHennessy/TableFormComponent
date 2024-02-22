@@ -102,4 +102,8 @@ export class AppComponent {
   onRowDeleted(event){
     this.lastRowDeleted = JSON.stringify(event)
   }
+
+  onInvalidRow(event){
+    alert('Invalid row');
+  }
 }
