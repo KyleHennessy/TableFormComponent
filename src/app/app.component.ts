@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TableFormComponent } from './table-form/table-form.component';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { NgTableFormComponent } from 'ng-table-form';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TableFormComponent, NgTableFormComponent],
+  imports: [NgTableFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
