@@ -19,13 +19,13 @@
     </div>
     <div class="row mb-5">
         <div class="col">
-            <app-table-form 
+            <ng-table-form 
                 [controls]="demo1" 
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
                 (rowDeleted)="onRowDeleted($event)"
                 (invalidRow)="onInvalidRow($event)">
-            </app-table-form>
+            </ng-table-form>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
     </div>
     <div class="row mb-5">
         <div class="col">
-            <app-table-form></app-table-form>
+            <ng-table-form></ng-table-form>
         </div>
     </div>
 
@@ -44,13 +44,13 @@
 
     <div class="row mb-5">
         <div class="col">
-            <app-table-form 
+            <ng-table-form 
                 [controls]="demo2"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
                 (rowDeleted)="onRowDeleted($event)"
                 (invalidRow)="onInvalidRow($event)">
-            </app-table-form>
+            </ng-table-form>
         </div>
     </div>
     
@@ -60,13 +60,13 @@
       
     <div class="row mb-5">
         <div class="col">
-            <app-table-form 
+            <ng-table-form 
                 [controls]="demo3"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
                 (rowDeleted)="onRowDeleted($event)"
                 (invalidRow)="onInvalidRow($event)">
-            </app-table-form>
+            </ng-table-form>
         </div>
     </div>
 
@@ -76,14 +76,14 @@
     </div>
     <div class="row mb-5">
         <div class="col">
-            <app-table-form 
+            <ng-table-form 
                 [controls]="demo4" 
                 [array]="demoArray"
                 (rowCreated)="onRowCreated($event)" 
                 (rowUpdated)="onRowUpdated($event)"
                 (rowDeleted)="onRowDeleted($event)"
                 (invalidRow)="onInvalidRow($event)">
-            </app-table-form>
+            </ng-table-form>
         </div>
     </div>
 
@@ -114,16 +114,5 @@
         <div class="col">
             {{lastRowDeleted ? 'Last deleted row: ' + lastRowDeleted : ''}}
         </div>
-    </div>
-
-
-    <div class="row mt-5">
-        <p>Test library table form</p>
-        <ng-table-form [controls]="demo1" 
-            (rowCreated)="onRowCreated($event)" 
-            (rowUpdated)="onRowUpdated($event)"
-            (rowDeleted)="onRowDeleted($event)"
-            (invalidRow)="onInvalidRow($event)">
-        </ng-table-form>
     </div>
 </div>

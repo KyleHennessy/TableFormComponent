@@ -146,7 +146,7 @@ export class NgTableFormComponent implements OnInit, AfterViewInit {
   }
 
   delete(index) {
-    this.rowDeleted.emit(this.getFormGroup(this.selectedRow).value);
+    this.rowDeleted.emit(this.getFormGroup(index).value);
     this.getFormArray.removeAt(index);
   }
 
