@@ -38,7 +38,9 @@ export class NgTableFormComponent implements OnInit, AfterViewInit {
             formGroup.addControl(key, new FormControl(item[key], this.controls.get(key)))
           }
         }
-        formArray.push(formGroup)
+        if(Object.keys(formGroup.controls).length > 1){
+          formArray.push(formGroup)
+        }
       }
     }
 
@@ -158,7 +160,7 @@ export class NgTableFormComponent implements OnInit, AfterViewInit {
     return newGroup;
   }
 
-  private getFormGroup(index: number): FormGroup {
+  getFormGroup(index: number): FormGroup {
     return <FormGroup>this.getFormArray.at(index);
   }
 
