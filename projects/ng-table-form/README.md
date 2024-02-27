@@ -58,6 +58,8 @@ You can write your own methods to react to these events as you see fit.<br/>
 
 Run `ng test ng-table-form` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Source Code
+## Sandbox
+For a working demo that you are free to experiment with and modify, visit the demo app on [Stackblitz](https://stackblitz.com/~/github.com/KyleHennessy/TableFormComponent)
 
+## Source Code
 To view the source code or request changes, visit the repo on [GitHub](https://github.com/KyleHennessy/TableFormComponent)
