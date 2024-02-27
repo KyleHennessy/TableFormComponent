@@ -10,11 +10,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "paths": {
-      "ng-table-form": [
-        "./dist/ng-table-form"
-      ]
-    },
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,

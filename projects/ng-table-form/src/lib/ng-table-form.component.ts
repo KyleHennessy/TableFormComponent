@@ -97,6 +97,8 @@ export class NgTableFormComponent implements OnInit, AfterViewInit {
     if (row.valid) {
       this.keydownSubmission = true;
       event.target.blur();
+    } else{
+      row.markAllAsTouched();
     }
   }
 

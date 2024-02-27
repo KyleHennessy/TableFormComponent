@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { NgTableFormComponent } from 'ng-table-form';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
