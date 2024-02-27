@@ -2,7 +2,9 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
-This package provides a reusable inline table form component for your angular apps.
+This package provides a reusable inline table form component built using Angular and Bootstrap 5.
+
+![a simple example of table form component](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/intro.gif)
 
 # Install
 To use this in your angular web app, install the package from the terminal in the directory where your angular app is located.
@@ -21,18 +23,24 @@ New rows are added when:<br />
     <li><strong>Tabbing to the next row</strong></li>
 </ul>
 
+![all different methods of submitting a row](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/savemethods.gif)
+
 The table form requires a map of control names and validators as an input.<br />
 The control name is the key in the map, and the value is an array of validator functions.<br/>
 A row can only be valid when it meets the requirements of the validator functions in the input map.
+![invalid row submission](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/invalid.gif)
 
 If a map of control names and validator functions is not passed in as an input to the table form component, then the component won't initialize.
+![failed to initialize table](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/not%20initialized.png)
 
 The amount of headers/columns in the table is determined by the amount of key value pairs in the controls map.
+![more columns](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/morecontrols.gif)
 
 It works with any number of columns in the table.
-
+![even more controls](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/toomanycontrols.gif)
 
 An array of objects can optionally be passed to the component as an input to populate the table with pre defined data.<br/>
+![array populated form](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/array.png)
 
 Key names in the object must match the control names in the map or else these keys will not be shown on the table.
 
