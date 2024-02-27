@@ -1,8 +1,8 @@
 # NgTableForm
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
-
 This package provides a reusable inline table form component built using Angular and Bootstrap 5.
+
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
 ![a simple example of table form component](https://raw.githubusercontent.com/KyleHennessy/TableFormComponent/main/src/assets/intro.gif)
 
