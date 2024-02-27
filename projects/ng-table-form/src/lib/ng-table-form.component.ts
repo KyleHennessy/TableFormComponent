@@ -93,12 +93,13 @@ export class NgTableFormComponent implements OnInit, AfterViewInit {
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.escape', ['$event'])
   onEnterKeydown(event) {
-    const row = this.getFormGroup(this.selectedRow);
-    if (row.valid) {
+    const group = this.getFormGroup(this.selectedRow);
+    if (group.valid) {
       this.keydownSubmission = true;
       event.target.blur();
     } else{
-      row.markAllAsTouched();
+      group.markAllAsTouched();
+      this.invalidRow.emit(group.value);
     }
   }
 
