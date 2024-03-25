@@ -54,12 +54,77 @@ There is a dedicated event emitter for each of these possible actions:<br/>
 </ul>
 
 You can write your own methods to react to these events as you see fit.<br/>
-## Running unit tests
 
-Run `ng test ng-table-form` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# How To Use
+The TableFormComponent expects at the very least a map of control names and associated validator functions to be passed in as an input. The control names will be mapped to each column in the table, and the validator functions will be applied to each of the form controls.
 
-## Sandbox
+In component.ts:
+```
+const controls = new Map<string, ValidatorFn[]>(
+    [
+        ['Surname', [Validators.required]]
+    ]
+);
+```
+In component.html:
+```
+<ng-table-form [controls]="controls"></ng-table-form>
+```
+Create, update and delete events are emitted as an output by the component that you can listen to. You are free to implement your own functionality to react to these events, such as making a call to an endpoint using row value.
+
+An event is also emitted as an output if the row is submitted, but it was invalid due to not satisfying the validator functions that were passed in to the `controls` input.
+
+In all cases, the event being emitted will contain the entire value of the object associated with that row.
+
+```
+<ng-table-form 
+    [controls]="controls" 
+    (rowCreated)="onRowCreated($event)" 
+    (rowUpdated)="onRowUpdated($event)"
+    (rowDeleted)="onRowDeleted($event)"
+    (invalidRow)="onInvalidRow($event)">
+</ng-table-form>
+```
+
+Optionally, you can  pass in an array of objects to the component to populate and initialize the table form with rows. 
+Note that if there is any keys in this object that are not in the `controls` map, then they will not be displayed in the table form.
+
+In component.ts:
+
+```
+const controls = new Map<string, ValidatorFn[]>(
+    [
+        ['Forename', [Validators.Required. Validators.maxLength(50)]]
+        ['Surname', [Validators.required]],
+        ['Email', [Validators.email]]
+    ]
+);
+const arr = [
+    {
+        Forename: "John",
+        Surname: "Doe",
+        Email: "johndoe@email.com"
+    },
+    {
+        Forename: "Jane",
+        Surname: "Doe",
+        Email: "janedoe@email.com"
+    },
+];
+```
+In component.html
+```
+<ng-table-form 
+    [controls]="controls" 
+    [array]="arr">
+</ng-table-form>
+```
+## Demo
 For a working demo that you are free to experiment with and modify, visit the demo app on [Stackblitz](https://stackblitz.com/~/github.com/KyleHennessy/TableFormComponent)
 
 ## Source Code
 To view the source code or request changes, visit the repo on [GitHub](https://github.com/KyleHennessy/TableFormComponent)
+
+## Running unit tests
+
+Run `ng test ng-table-form` to execute the unit tests via [Karma](https://karma-runner.github.io).
